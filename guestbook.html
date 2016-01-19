@@ -1,0 +1,55 @@
+<head>
+  <title>guestbook</title>
+</head>
+
+<body>
+    <h1>Welcome to my guestbook</h1>
+
+    {{> loginButtons}}
+
+    {{> guestBook}}
+</body>
+
+<template name="guestBook">
+        {{#if currentUser}}
+        <form>
+              <div class="form-group">
+                <label for="guestBookMessage">Message</label>
+                <textarea name="guestBookMessage" class="form-control" cols="30" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="guestColor">Color</label>
+                {{> colorpicker}}
+              </div>
+              <button type="submit" class="btn btn-primary">Post Message</button>
+        </form>
+        {{/if}}
+
+        <h1>Messages</h1>
+        <div id="messages">
+            {{#each messages}}
+                {{> message}}
+            {{/each}}
+        </div>
+</template>
+
+<template name="message">
+    <div class="message">
+        <div class="votes">
+            <button class="up {{#if votedUp}}set{{/if}}">▲</button>
+            <button class="down {{#if votedDown}}set{{/if}}">▼</button>
+            <div class="score">{{score}}</div>
+        </div>
+        <div class="message-content">
+          <div><strong style="color:{{color}}">{{ name }}</strong></div>
+
+          {{ text }}
+
+          <div class="date">{{createdAtFormatted}}</div>
+      </div>
+  </div>
+</template>
+
+<template name="colorpicker">
+    <input class="colorpicker" type="text" value="#5367ce" />
+</template>
